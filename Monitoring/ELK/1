@@ -1,0 +1,49 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2023-02-13T22:16:22Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    common.k8s.elastic.co/type: kibana
+    kibana.k8s.elastic.co/name: kibana
+  name: kibana-kb-http
+  namespace: default
+  ownerReferences:
+  - apiVersion: kibana.k8s.elastic.co/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Kibana
+    name: kibana
+    uid: cb25c006-163e-4800-902e-77061288ed6d
+  resourceVersion: "493122"
+  uid: b9935cbd-7d4a-4d8e-9da4-055ac604149f
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 172.20.108.252
+  clusterIPs:
+  - 172.20.108.252
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: https
+    nodePort: 32313
+    port: 5601
+    protocol: TCP
+    targetPort: 5601
+  selector:
+    common.k8s.elastic.co/type: kibana
+    kibana.k8s.elastic.co/name: kibana
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer:
+    ingress:
+    - hostname: ab9935cbd7d4a4d8e9da4055ac604149-1948917353.us-west-2.elb.amazonaws.com

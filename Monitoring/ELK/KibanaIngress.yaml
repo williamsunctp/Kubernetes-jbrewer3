@@ -4,9 +4,13 @@ metadata:
   namespace: default
   name: kibana-ingress
   annotations:
+    alb.ingress.kubernetes.io/backend-protocol: HTTPS
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/certificate-arn: <Certificate ARN>
+    alb.ingress.kubernetes.io/certificate-arn: #Certificate ARN goes here
+    alb.ingress.kubernetes.io/subnets: #subnet id or subnet name (subnet-xxx, My_Subnet)
 spec:
   ingressClassName: alb
   rules:
@@ -18,4 +22,4 @@ spec:
             service:
               name: kibana-kb-http
               port:
-                number: 80
+                number: 5601
